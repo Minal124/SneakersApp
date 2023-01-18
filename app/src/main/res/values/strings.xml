@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">SneakersApp</string>
+    <string name="top_bar">SNEAKERSHIP</string>
+    <string name="popular">Popular</string>
+    <string name="home">HOME</string>
+    <string name="cart">CART</string>
+
+    <string name="order_details">Order details</string>
+    <string name="subtotal">Subtotal: %d</string>
+    <string name="taxes_and_charges">Taxes and Charges: %d</string>
+    <string name="total">Total:</string>
+    <string name="check_out">$Check Out</string>
+    <string name="add_to_cart">Add to Cart</string>
+    <string name="price">Price:</string>
+</resources>
