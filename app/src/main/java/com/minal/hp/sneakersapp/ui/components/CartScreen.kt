@@ -1,7 +1,7 @@
 package com.minal.hp.sneakersapp.ui.components
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -22,69 +22,75 @@ fun CartScreen(
     val viewModel = viewModel<CartScreenViewModel>()
     val cartItemsState = viewModel.sneakersCartListState.collectAsState()
 
-    Column(
+    LazyColumn(
         modifier = modifier.padding(top = 24.dp)
-            .fillMaxWidth()
+            .fillMaxWidth(),
+        contentPadding = PaddingValues(vertical = 16.dp)
     ) {
-        sneakersVerticalLazyComponent()
-        if (cartItemsState.value.sneakersList.isNotEmpty()) {
-            var subTotal = 0
-            cartItemsState.value.sneakersList.forEach {
-                subTotal += it.retailPrice
-            }
-            var total = subTotal + 40
-            Spacer(modifier = Modifier.padding(8.dp))
-            Text(
-                text = stringResource(id = R.string.order_details),
-                style = MaterialTheme.typography.h6
-            )
-            Spacer(modifier = Modifier.padding(4.dp))
-            Text(
-                text = stringResource(id = R.string.subtotal,subTotal),
-                style = MaterialTheme.typography.body1,
-                color = MaterialTheme.colors.secondary
-            )
-            Text(
-                text = stringResource(id = R.string.taxes_and_charges, 40),
-                style = MaterialTheme.typography.body1,
-                color = MaterialTheme.colors.secondary,
-                modifier = Modifier.padding(top = 4.dp)
-            )
-            Spacer(modifier = Modifier.padding(4.dp))
-            Row(
-                modifier = Modifier,
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ){
+        item{
+            sneakersVerticalLazyComponent()
+        }
+        item{
+            if (cartItemsState.value.sneakersList.isNotEmpty()) {
+                var subTotal = 0
+                cartItemsState.value.sneakersList.forEach {
+                    subTotal += it.retailPrice
+                }
+                var total = subTotal + 40
+                Spacer(modifier = Modifier.padding(8.dp))
                 Text(
-                    text = stringResource(id = R.string.total),
+                    text = stringResource(id = R.string.order_details),
+                    style = MaterialTheme.typography.h6
+                )
+                Spacer(modifier = Modifier.padding(4.dp))
+                Text(
+                    text = stringResource(id = R.string.subtotal,subTotal),
+                    style = MaterialTheme.typography.body1,
+                    color = MaterialTheme.colors.secondary
+                )
+                Text(
+                    text = stringResource(id = R.string.taxes_and_charges, 40),
                     style = MaterialTheme.typography.body1,
                     color = MaterialTheme.colors.secondary,
-
-                    )
-                Text(
-                    text = total.toString(),
-                    style = MaterialTheme.typography.body1,
-                    color = MaterialTheme.colors.primary,
-                    modifier = Modifier.padding(start = 2.dp)
-
-                    )
-                Spacer(modifier = Modifier.weight(1f))
-                Button(
-                    shape = MaterialTheme.shapes.medium,
-                    onClick = {
-                    },
-                    modifier = Modifier.weight(1f)
-                ) {
+                    modifier = Modifier.padding(top = 4.dp)
+                )
+                Spacer(modifier = Modifier.padding(4.dp))
+                Row(
+                    modifier = Modifier,
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ){
                     Text(
-                        text = stringResource(id = R.string.check_out
+                        text = stringResource(id = R.string.total),
+                        style = MaterialTheme.typography.body1,
+                        color = MaterialTheme.colors.secondary,
+
                         )
+                    Text(
+                        text = total.toString(),
+                        style = MaterialTheme.typography.body1,
+                        color = MaterialTheme.colors.primary,
+                        modifier = Modifier.padding(start = 2.dp)
+
                     )
+                    Spacer(modifier = Modifier.weight(1f))
+                    Button(
+                        shape = MaterialTheme.shapes.medium,
+                        onClick = {
+                        },
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        Text(
+                            text = stringResource(id = R.string.check_out
+                            )
+                        )
+                    }
                 }
+            } else {
+                //show card is empty
             }
-        } else {
-            //show card is empty
         }
+
     }
 }
 
