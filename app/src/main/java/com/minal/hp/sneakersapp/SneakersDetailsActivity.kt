@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Parcelable
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -18,10 +19,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.minal.hp.sneakersapp.model.datamodel.CartItemInfo
 import com.minal.hp.sneakersapp.ui.components.ViewPagerComponent
 import com.minal.hp.sneakersapp.ui.theme.SneakersAppTheme
+import com.minal.hp.sneakersapp.viewmodel.CartScreenViewModel
+import com.minal.hp.sneakersapp.viewmodel.SneakersViewEvent
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.parcelize.Parcelize
 
+@AndroidEntryPoint
 class SneakersDetailsActivity: ComponentActivity() {
 
     companion object {
@@ -51,7 +57,10 @@ class SneakersDetailsActivity: ComponentActivity() {
         val id: String = "",
         val imgUrl: String = "",
         val name: String = "",
-        val price: Int = 0
+        val price: Int = 0,
+        val shoe: String = "",
+        val gender: String = "",
+        val colorway: String = "",
     ) : Parcelable
 
     lateinit var params: Params
@@ -60,6 +69,7 @@ class SneakersDetailsActivity: ComponentActivity() {
         params = requireNotNull(intent.getParcelableExtra("params"))
     }
 
+    private val cartScreenViewModel: CartScreenViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         readParams(intent)
@@ -181,7 +191,20 @@ class SneakersDetailsActivity: ComponentActivity() {
                     Button(
                         shape = MaterialTheme.shapes.medium,
                         onClick = {
-
+                              cartScreenViewModel.handleViewEvent(SneakersViewEvent.AddItem(
+                                  CartItemInfo(
+                                  id = params.id,
+                                  brand = "",
+                                  colorway = params.colorway,
+                                  gender = params.gender,
+                                  releaseDate = "",
+                                  retailPrice = params.price,
+                                  styleId = "",
+                                  shoe = params.shoe,
+                                  name = params.name,
+                                  title = "",
+                                  year = 2023
+                              )))
                         },
                         modifier = Modifier.weight(1f)
                     ) {

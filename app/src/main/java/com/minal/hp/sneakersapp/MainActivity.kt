@@ -58,12 +58,12 @@ class MainActivity : ComponentActivity() {
                         }
                     )
                 }
-            ) {
+            ) { innerPadding ->
                 MainScreen(
                     modifier = Modifier.padding(
                         start = 24.dp,
-                        end= 24.dp
-                    ),
+                        end= 24.dp,
+                    ).padding(innerPadding),
                     selectedBottomBarItem = currentSelectedSlug
                 )
             }
