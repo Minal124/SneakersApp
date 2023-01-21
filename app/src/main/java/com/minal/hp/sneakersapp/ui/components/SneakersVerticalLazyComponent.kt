@@ -11,7 +11,7 @@ import com.minal.hp.sneakersapp.viewmodel.CartScreenViewModel
 import com.minal.hp.sneakersapp.viewmodel.SneakersViewEvent
 
 @Composable
-fun sneakersVerticalLazyComponent() {
+fun SneakersVerticalLazyComponent() {
     val viewModel = viewModel<CartScreenViewModel>()
     val cartItemsState = viewModel.sneakersCartListState.collectAsState()
     if (cartItemsState.value.isLoading) {

@@ -6,7 +6,6 @@ import com.minal.hp.sneakersapp.model.repository.ISneakersRepository
 import com.minal.hp.sneakersapp.model.repository.SneakersRepository
 import com.minal.hp.sneakersapp.model.source.local.ISneakersPersistenceSource
 import com.minal.hp.sneakersapp.model.source.local.SneakersPersistenceSource
-import com.minal.hp.sneakersapp.model.source.local.dao.ISneakersDao
 import com.minal.hp.sneakersapp.model.source.remote.ISneakersNetworkSource
 import com.minal.hp.sneakersapp.model.source.remote.SneakersNetworkSource
 import dagger.Binds
@@ -32,10 +31,12 @@ abstract class AppModule {
     @Singleton
     abstract fun getSneakersPersistenceSource(source: SneakersPersistenceSource): ISneakersPersistenceSource
 
+
     companion object {
         @Singleton
         @Provides
         fun provideContext(application: Application): Context
                 = application.applicationContext
+
     }
 }

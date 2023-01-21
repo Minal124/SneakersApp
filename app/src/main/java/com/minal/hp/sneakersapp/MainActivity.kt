@@ -3,6 +3,7 @@ package com.minal.hp.sneakersapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
@@ -14,13 +15,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.minal.hp.sneakersapp.ui.components.*
 import com.minal.hp.sneakersapp.ui.theme.SneakersAppTheme
+import com.minal.hp.sneakersapp.viewmodel.HomeScreenViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
+    private val homeScreenViewModel: HomeScreenViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        homeScreenViewModel.refresh()
         setContent {
             SneakersApp()
         }

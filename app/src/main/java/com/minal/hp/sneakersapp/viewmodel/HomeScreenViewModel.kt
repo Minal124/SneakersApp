@@ -2,12 +2,13 @@ package com.minal.hp.sneakersapp.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.minal.hp.sneakersapp.model.datamodel.SneakersData
-import com.minal.hp.sneakersapp.model.datamodel.toSneakersData
+import com.minal.hp.sneakersapp.model.datamodel.SneakersInfo
 import com.minal.hp.sneakersapp.model.repository.ISneakersRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -28,13 +29,14 @@ class HomeScreenViewModel @Inject constructor(
         )
         viewModelScope.launch {
             try {
-                val sneakersList = sneakersRepository.getSneakers().map { sneakersData->
-                    sneakersData.toSneakersData()
+                sneakersRepository.getSneakers()
+                    .flowOn(Dispatchers.IO)
+                    .collect{
+                    _sneakersState.value = SneakersViewState(
+                        isLoading = false,
+                        sneakersList = it
+                    )
                 }
-                _sneakersState.value = SneakersViewState(
-                    isLoading = false,
-                    sneakersList=sneakersList
-                )
                 logger.d("fetch Sneakers Data")
             } catch (e: Exception) {
                 _sneakersState.value = SneakersViewState(
@@ -45,11 +47,21 @@ class HomeScreenViewModel @Inject constructor(
             }
         }
     }
+
+    fun refresh() {
+        viewModelScope.launch {
+            try {
+                sneakersRepository.fetchAndUpdateSneakers()
+            } catch (e: Exception) {
+                logger.e(e, "Failure in updating schema")
+            }
+        }
+    }
 }
 
 
 data class SneakersViewState (
     val isLoading:Boolean = true,
-    val sneakersList: List<SneakersData> = emptyList(),
+    val sneakersList: List<SneakersInfo> = emptyList(),
     val errorString: String? = null
 )

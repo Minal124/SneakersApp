@@ -28,7 +28,7 @@ fun CartScreen(
         contentPadding = PaddingValues(vertical = 16.dp)
     ) {
         item{
-            sneakersVerticalLazyComponent()
+            SneakersVerticalLazyComponent()
         }
         item{
             if (cartItemsState.value.sneakersList.isNotEmpty()) {
@@ -36,7 +36,7 @@ fun CartScreen(
                 cartItemsState.value.sneakersList.forEach {
                     subTotal += it.retailPrice
                 }
-                var total = subTotal + 40
+                val total = subTotal + 40
                 Spacer(modifier = Modifier.padding(8.dp))
                 Text(
                     text = stringResource(id = R.string.order_details),

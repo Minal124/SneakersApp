@@ -13,7 +13,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.minal.hp.sneakersapp.R
 import com.minal.hp.sneakersapp.SneakersDetailsActivity
-import com.minal.hp.sneakersapp.model.datamodel.SneakersData
+import com.minal.hp.sneakersapp.model.datamodel.CartItemInfo
+import com.minal.hp.sneakersapp.model.datamodel.SneakersInfo
 import com.minal.hp.sneakersapp.viewmodel.CartScreenViewModel
 import com.minal.hp.sneakersapp.viewmodel.SneakersViewEvent
 
@@ -21,7 +22,7 @@ import com.minal.hp.sneakersapp.viewmodel.SneakersViewEvent
 @Composable
 fun SneakersCollectionGrid(
     modifier: Modifier = Modifier,
-    items:List<SneakersData>
+    items:List<SneakersInfo>
 ) {
     val viewModel = viewModel<CartScreenViewModel>()
     val context = LocalContext.current
@@ -40,14 +41,25 @@ fun SneakersCollectionGrid(
                 item = item,
                 drawable = R.drawable.ic_nike_air,
                 addItemAction = {
-                    viewModel.handleViewEvent(SneakersViewEvent.AddItem(it))
+                    viewModel.handleViewEvent(SneakersViewEvent.AddItem(CartItemInfo(
+                        id = it.id,
+                        brand = it.brand,
+                        colorway = it.colorway,
+                        gender = it.gender,
+                        releaseDate = it.releaseDate,
+                        retailPrice = it.retailPrice,
+                        styleId = it.styleId,
+                        shoe = it.shoe,
+                        name = it.name,
+                        title = it.title,
+                        year = it.year
+                    )))
                 },
                 action = {
                     SneakersDetailsActivity.launch(
                         context = context,
                         params = SneakersDetailsActivity.Params(
                             id= item.id,
-                            imgUrl = item.media.imageUrl,
                             name = item.name,
                             price= item.retailPrice
                         )

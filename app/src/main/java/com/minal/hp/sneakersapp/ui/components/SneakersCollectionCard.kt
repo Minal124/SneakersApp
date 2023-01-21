@@ -20,8 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.minal.hp.sneakersapp.R
-import com.minal.hp.sneakersapp.model.datamodel.MediaData
-import com.minal.hp.sneakersapp.model.datamodel.SneakersData
+import com.minal.hp.sneakersapp.model.datamodel.SneakersInfo
 import com.minal.hp.sneakersapp.ui.theme.Shapes
 import com.minal.hp.sneakersapp.ui.theme.SneakersAppTheme
 
@@ -29,11 +28,11 @@ import com.minal.hp.sneakersapp.ui.theme.SneakersAppTheme
 fun SneakersCollectionCard(
     modifier: Modifier = Modifier,
     action: () -> Unit = {},
-    item: SneakersData,
+    item: SneakersInfo,
     @DrawableRes drawable: Int,
     shoeName: String,
     price: String,
-    addItemAction: (item: SneakersData)-> Unit = {}
+    addItemAction: (item: SneakersInfo)-> Unit = {}
 ) {
     Card(
         elevation = 2.dp,
@@ -102,12 +101,11 @@ fun SneakersCollectionCardPreview() {
             drawable = R.drawable.ic_nike_air,
             shoeName = "Nike Air",
             price = "$199",
-            item = SneakersData(
+            item = SneakersInfo(
                 id = "11",
                 brand = "",
                 colorway = "",
                 gender = "",
-                media = MediaData("","",""),
                 releaseDate = "",
                 retailPrice = 200,
                 styleId = "",

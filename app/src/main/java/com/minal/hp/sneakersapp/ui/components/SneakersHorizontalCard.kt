@@ -16,8 +16,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.minal.hp.sneakersapp.R
-import com.minal.hp.sneakersapp.model.datamodel.MediaData
-import com.minal.hp.sneakersapp.model.datamodel.SneakersData
+import com.minal.hp.sneakersapp.model.datamodel.CartItemInfo
 import com.minal.hp.sneakersapp.ui.theme.Shapes
 import com.minal.hp.sneakersapp.ui.theme.SneakersAppTheme
 
@@ -28,8 +27,8 @@ fun SneakersHorizontalCard(
     shoeName: String,
     price: String,
     onClick: () -> Unit = {},
-    item: SneakersData ,
-    onRemoveItem: (item: SneakersData) -> Unit = {}
+    item: CartItemInfo ,
+    onRemoveItem: (item: CartItemInfo) -> Unit = {}
 ) {
     Card(
         elevation = 2.dp,
@@ -88,12 +87,11 @@ fun SneakersHorizontalCardPreview() {
             shoeName = "Nike",
             price = "$300",
             drawable = R.drawable.ic_nike_air,
-            item = SneakersData(
+            item = CartItemInfo(
                 id = "11",
                 brand = "",
                 colorway = "",
                 gender = "",
-                media = MediaData("","",""),
                 releaseDate = "",
                 retailPrice = 200,
                 styleId = "",
